@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SignalDefinitions>
+
+  <Signal Name="A">
+    <DataType>uint8</DataType>
+    <InitialValue>0</InitialValue>
+    <StorageClass>ExportedGlobal</StorageClass>
+    <Description>Button toggle state</Description>
+  </Signal>
+
+  <Signal Name="B">
+    <DataType>boolean</DataType>
+    <InitialValue>0</InitialValue>
+    <StorageClass>ExportedGlobal</StorageClass>
+    <Description>LED state</Description>
+  </Signal>
+
+  <!-- Add more signals below by copying a Signal block -->
+  <!--
+  <Signal Name="C">
+    <DataType>uint8</DataType>
+    <InitialValue>0</InitialValue>
+    <StorageClass>ExportedGlobal</StorageClass>
+    <Description>Your description here</Description>
+  </Signal>
+  -->
+
+</SignalDefinitions>

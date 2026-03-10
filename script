@@ -1,0 +1,10 @@
+config load "C:\Users\sakee\OneDrive\Desktop\STM32_Projects\Motor_Control\Motor_Control.ioc"
+project toolchain STM32CubeIDE
+
+SetStructure Advanced
+
+project setCustomFWPath "C:\Users\sakee\Projects\STM32Cube_FW_F4_V1.26.2"
+
+project generate 
+
+exit wait
