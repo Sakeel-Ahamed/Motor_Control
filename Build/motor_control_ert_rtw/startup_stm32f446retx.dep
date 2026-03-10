@@ -1,2 +1,0 @@
-startup_stm32f446retx.o: \
- C:/Users/sakee/OneDrive/Desktop/STM32_Projects/Motor_Control/STM32CubeIDE/Application/User/Startup/startup_stm32f446retx.s
