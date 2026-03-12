@@ -10,6 +10,7 @@ Build/*.hex
 Build/*.o
 Build/*.map
 Build/*.slxc
+Build/*.asv
 
 # MATLAB cache/info files
 *.mat
@@ -18,3 +19,4 @@ Build/*.slxc
 
 # Keep these source files
 !Build/loadall.m
+!Build/compare_model.m

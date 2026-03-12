@@ -24,14 +24,16 @@ function compare_model(modelName, commitRef)
     modulesDir = char(java.io.File(modulesDir).getCanonicalPath()); % resolve '..'
 
     % Full path to the current model in Modules
+    modelName = strrep(modelName, '/', filesep);
+    modelName = strrep(modelName, '\', filesep);
     modelPath = fullfile(modulesDir, modelName);
 
     if ~isfile(modelPath)
         error('Model not found: %s\nMake sure the model is in the Modules folder.', modelPath);
     end
 
-    % Temp file goes into Build folder (next to this script)
-    tempFile = fullfile(buildDir, ['_old_' modelName]);
+    [~, baseName, ext] = fileparts(modelName);
+    tempFile = fullfile(buildDir, ['prev_' baseName ext]);
 
     % Get git root to build relative path for git show
     [gitRoot, status] = getGitRoot();
@@ -44,7 +46,7 @@ function compare_model(modelName, commitRef)
     relPath = strrep(relPath, '\', '/');
 
     % Extract committed version into Build folder
-    gitCmd = sprintf('git show %s:"%s" > "%s"', commitRef, relPath, tempFile);
+    gitCmd = sprintf('cd "%s" && git show %s:"%s" > "%s"', gitRoot, commitRef, relPath, tempFile);
     [status, result] = system(gitCmd);
 
     if status ~= 0
