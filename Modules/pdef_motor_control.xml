@@ -7,7 +7,7 @@
   <!-- Example: LED blink rate counts -->
   <Parameter Name="BEnableLedBlink">
     <DataType>boolean</DataType>
-    <Value>0</Value>
+    <Value>1</Value>
     <Min>0</Min>
     <Max>1</Max>
     <Unit>-</Unit>
