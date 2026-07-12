@@ -3,23 +3,53 @@ trigger:
 
 parameters:
 - name: userInput
-  displayName: 'Select an option'
+  displayName: 'Choose build option'
   type: string
-  default: 'Option A'
+  default: 'Build all projects'
   values:
-  - 'Option A'
-  - 'Option B'
+      - 'Build all projects'
+      - 'Build specific project'
+
+- name: versionNumber
+  displayName: 'Version number (used only if Build all projects)'
+  type: string
+  default: '1.0.0'
+
+- name: specificProject
+  displayName: 'Project name (used only if Build specific project)'
+  type: string
+  default: 'ProjectA'
+  values:
+      - ProjectA
+      - ProjectB
+      - ProjectC
+      - ProjectD
+      - ProjectE
+      - ProjectF
 
 pool:
   name: default
 
+variables:
+  ${{ if eq(parameters.userInput, 'Build all projects') }}:
+    matlabArg: 'buildAll'
+  ${{ else }}:
+    matlabArg: 'BuildOne'
+
 steps:
 - checkout: self
 
-- script: |
-    echo "Running MATLAB script with input: ${{ parameters.userInput }}"
-    matlab -batch "runScript('${{ parameters.userInput }}')"
-  displayName: "Run MATLAB script"
+- ${{ if eq(parameters.userInput, 'Build all projects') }}:
+  - script: |
+      echo "Running MATLAB script with input: $(matlabArg)"
+      matlab -batch "runScript('$(matlabArg)', '${{ parameters.versionNumber }}')"
+    displayName: "Run MATLAB script"
+
+- ${{ if eq(parameters.userInput, 'Build specific project') }}:
+  - script: |
+      echo "Running MATLAB script with input: $(matlabArg)"
+      matlab -batch "runScript('$(matlabArg)', '${{ parameters.specificProject }}')"
+    displayName: "Run MATLAB script"
 
 - script: |
     echo "Copying artifacts to local folder"
