@@ -1,0 +1,33 @@
+trigger:
+- master
+
+parameters:
+- name: userInput
+  displayName: 'Select an option'
+  type: string
+  default: 'Option A'
+  values:
+  - 'Option A'
+  - 'Option B'
+
+pool:
+  name: default
+
+steps:
+- checkout: self
+
+- script: |
+    echo "Running MATLAB script with input: ${{ parameters.userInput }}"
+    matlab -batch "runScript('${{ parameters.userInput }}')"
+  displayName: "Run MATLAB script"
+
+- script: |
+    echo "Copying artifacts to local folder"
+    xcopy output "C:\Users\sakee\OneDrive\Desktop\DevOps_Pipeline\Pipeline_Test" /E /I /Y
+  displayName: "Copying Artifacts"
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: 'output'
+    artifact: 'artifactOutputName'
+  displayName: "Publish MATLAB output"
